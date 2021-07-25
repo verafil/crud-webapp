@@ -3,12 +3,13 @@ package web.dao;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import web.models.User;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
+@Component
 public class UserDaoImp implements UserDao{
 
     @Autowired
@@ -19,9 +20,11 @@ public class UserDaoImp implements UserDao{
         sessionFactory.getCurrentSession().save(user);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<User> readAll() {
-        return (List<User>) sessionFactory.getCurrentSession().createQuery("from User").list();
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
+        return query.getResultList();
     }
 
     @Override
@@ -36,7 +39,8 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public void delete(User user) {
-        sessionFactory.getCurrentSession().delete(user);
+    public void delete(int id) {
+        Query query = sessionFactory.getCurrentSession().createQuery("from User a where a.id = :id");
+        sessionFactory.getCurrentSession().delete((User) query.setParameter("id", id).uniqueResult());
     }
 }
