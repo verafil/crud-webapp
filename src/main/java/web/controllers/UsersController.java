@@ -12,6 +12,7 @@ import web.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 //@Mapping(value = "/admin")
@@ -60,6 +61,7 @@ public class UsersController {
     @GetMapping("/user-update/{id}")
     public String deleteUser(@PathVariable("id") int id, Model model) {
         User user = userService.readById(id);
+        model.addAttribute("roles", user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList()));
         model.addAttribute("user", user);
         return "user-update";
     }
@@ -67,13 +69,14 @@ public class UsersController {
     @PostMapping("/user-update")
     public String deleteUser(User user) {
         userService.update(user);
-        return "redirect:/users";
+        return "redirect:/admin";
     }
 
     @GetMapping("/user/{id}")
     public String personalPageUser(@PathVariable("id") int id, Model model) {
         User user = userService.readById(id);
         model.addAttribute("user", user);
+        model.addAttribute("roles", user.getRoles());
         return "user-personal";
     }
 }

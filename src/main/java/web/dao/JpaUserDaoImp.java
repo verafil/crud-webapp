@@ -2,12 +2,15 @@ package web.dao;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.expression.Sets;
+import web.models.Role;
 import web.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @Transactional(readOnly = true)
@@ -25,6 +28,11 @@ public class JpaUserDaoImp implements UserDao {
     @Override
     public List<User> readAll() {
         return entityManager.createQuery("select u from User u", User.class).getResultList();
+    }
+
+    @Override
+    public List<Role> readAllRoles() {
+        return entityManager.createQuery("select u from Role u", Role.class).getResultList();
     }
 
     @Override

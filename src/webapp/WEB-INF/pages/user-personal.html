@@ -5,6 +5,20 @@
     <title>user</title>
 </head>
 <body>
-  <p th:text="${user.getName()}">VALUE</p>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<H1>this is the user's personal page</H1>
+<br/>
+
+<p th:text="${user.getName()}"></p>
+<p th:text="${user.getLastName()}"></p>
+<p th:text="${user.getUsername()}"></p>
+<p th:text="${user.getPassword()}"></p>
+
+<p th:each="role : ${user.getRoles()}">
+    <span th:text="${role.toString()}"></span>
+</p>
+
 </body>
 </html>

@@ -5,6 +5,9 @@
     <title>Create user</title>
 </head>
 <body>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 <form action="#" th:action="@{/user-create}" th:object="${user}" method="post">
     <label for="lastName">username</label>
     <input type="text" th:field="*{username}" id="username" placeholder="username">
@@ -15,10 +18,10 @@
     <label for="lastName">last name</label>
     <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last name">
 
-    <input type=checkbox id=adminId name=roles[] value="ROLE_ADMIN">
-    <label for="adminId">Admin</label>
-    <input type=checkbox id=userId name=roles[] value="ROLE_USER">
-    <label for="userId">User</label>
+    <input type=checkbox id=admin name=roles value="ROLE_ADMIN">
+    <label for="admin">Admin</label>
+    <input type=checkbox id=user name=roles value="ROLE_USER">
+    <label for="user">User</label>
 
     <input type="submit" value="Create user">
 </form>
