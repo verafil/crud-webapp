@@ -15,15 +15,21 @@
             <th>id</th>
             <th>name</th>
             <th>last name</th>
+            <th>Username</th>
+            <th>Password</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${usersList}">
-            <td th:text="${user.getId()}"></td>
+            <td><a th:href="@{/user/{id}(id=${user.getId()})}" th:text="${user.getId()}">id</a></td>
             <td th:text="${user.getName()}"></td>
             <td th:text="${user.getLastName()}"></td>
+            <td th:text="${user.getUsername()}"></td>
+            <td th:text="${user.getPassword()}"></td>
+
             <td><a th:href="@{user-update/{id}(id=${user.getId()})}">Edit</a></td>
             <td><a th:href="@{user-delete/{id}(id=${user.getId()})}">Delete</a></td>
+
         </tr>
         </tbody>
     </table>

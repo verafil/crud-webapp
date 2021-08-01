@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+//@Mapping(value = "/admin")
 public class UsersController {
 
     private final UserService userService;
@@ -32,7 +33,7 @@ public class UsersController {
         return "index";
     }
 
-    @GetMapping("/users")
+    @GetMapping("/admin")
     public String index(Model model) {
         //получим список всех пользователей БД
         model.addAttribute("usersList", userService.readAll());
@@ -47,13 +48,13 @@ public class UsersController {
     @PostMapping("/user-create")
     public String createUser(User user) {
         userService.create(user);
-        return "redirect:/users";
+        return "redirect:/admin";
     }
 
     @GetMapping("/user-delete/{id}")
     public String deleteUser(@PathVariable("id") int id) {
         userService.delete(id);
-        return "redirect:/users";
+        return "redirect:/admin";
     }
 
     @GetMapping("/user-update/{id}")
@@ -67,5 +68,12 @@ public class UsersController {
     public String deleteUser(User user) {
         userService.update(user);
         return "redirect:/users";
+    }
+
+    @GetMapping("/user/{id}")
+    public String personalPageUser(@PathVariable("id") int id, Model model) {
+        User user = userService.readById(id);
+        model.addAttribute("user", user);
+        return "user-personal";
     }
 }

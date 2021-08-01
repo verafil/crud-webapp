@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class JpaUserDaoImp implements UserDao {
 
-    @PersistenceContext(unitName = "emf")
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -32,6 +32,13 @@ public class JpaUserDaoImp implements UserDao {
         TypedQuery<User> query = entityManager.createQuery("select u from User u where u.id=:id", User.class);
         query.setParameter("id", id);
         //return query.getSingleResult();
+        return query.getResultList().stream().findAny().orElse(null);
+    }
+
+    @Override
+    public User getUserByName(String username) {
+        TypedQuery<User> query = entityManager.createQuery("select u from User u where u.username=:username", User.class);
+        query.setParameter("username", username);
         return query.getResultList().stream().findAny().orElse(null);
     }
 
