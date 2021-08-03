@@ -12,7 +12,6 @@ import web.models.User;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class UserServiceImp implements UserService{
@@ -28,7 +27,6 @@ public class UserServiceImp implements UserService{
     @Override
     public void create(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList()).contains("sad");
         userDao.create(user);
     }
     @Transactional(readOnly = true)
