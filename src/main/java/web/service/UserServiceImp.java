@@ -6,12 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
-import web.models.Role;
 import web.models.User;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class UserServiceImp implements UserService{

@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-//@Mapping(value = "/admin")
 public class UsersController {
 
     private final UserService userService;
