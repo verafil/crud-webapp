@@ -6,6 +6,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import web.models.User;
 import web.repository.UserRepository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Service
@@ -21,8 +25,7 @@ public class UserService {
     }
 
     public User findUserByUserName(String userName) {
-        return userRepository.getUserByName(userName)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", userName)));
+        return userRepository.findByUsername(userName);
     }
 
     public void save(User user) {
