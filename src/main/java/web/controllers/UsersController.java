@@ -47,7 +47,7 @@ public class UsersController {
 
     @PostMapping("/user-create")
     public String createUser(User user) {
-        userService.create(user);
+        userService.save(user);
         return "redirect:/admin";
     }
 
@@ -67,7 +67,7 @@ public class UsersController {
 
     @PostMapping("/user-update")
     public String deleteUser(User user) {
-        userService.update(user);
+        userService.save(user);
         return "redirect:/admin";
     }
 
