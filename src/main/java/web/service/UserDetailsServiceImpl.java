@@ -12,10 +12,11 @@ import web.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userService;
+
+    private UserService userService;
 
     @Autowired
-    public UserDetailsServiceImpl(UserRepository userService) {
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
@@ -23,7 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findByUsername(username);
-          //      .orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }

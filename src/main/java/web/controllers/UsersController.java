@@ -17,12 +17,8 @@ import java.util.stream.Collectors;
 @Controller
 public class UsersController {
 
-    private final UserService userService;
-
     @Autowired
-    public UsersController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @GetMapping(value = "/")
     public String printWelcome(ModelMap model) {

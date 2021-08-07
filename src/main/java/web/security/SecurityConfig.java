@@ -19,23 +19,20 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
-    private final SuccessUserHandler successUserHandler; // класс, в котором описана логика перенаправления пользователей по ролям
 
     @Autowired
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, SuccessUserHandler successUserHandler) {
-        this.userDetailsService = userDetailsService;
-        this.successUserHandler = successUserHandler;
-    }
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private SuccessUserHandler successUserHandler;
 
-    @Override
+       @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .and().formLogin().permitAll()
-                .successHandler(successUserHandler) // подключаем наш SuccessHandler для перенеправления по ролям
+                .successHandler(successUserHandler)
                 .and().logout().logoutSuccessUrl("/");
     }
 
