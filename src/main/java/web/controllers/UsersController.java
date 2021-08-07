@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import web.dto.UserDto;
 import web.models.Role;
 import web.models.User;
 import web.service.UserServiceImp;
@@ -43,8 +44,8 @@ public class UsersController {
     }
 
     @PostMapping("/user-create")
-    public String createUser(User user) {
-        userServiceImp.save(user);
+    public String createUser(UserDto userDto) {
+        userServiceImp.saveUser(userDto);
         return "redirect:/admin";
     }
 
@@ -55,7 +56,7 @@ public class UsersController {
     }
 
     @GetMapping("/user-update/{id}")
-    public String deleteUser(@PathVariable("id") int id, Model model) {
+    public String updateUserForm(@PathVariable("id") int id, Model model) {
         User user = userServiceImp.readById(id);
         model.addAttribute("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
         model.addAttribute("user", user);
@@ -63,8 +64,8 @@ public class UsersController {
     }
 
     @PostMapping("/user-update")
-    public String deleteUser(User user) {
-        userServiceImp.save(user);
+    public String updateUser(UserDto userDto) {
+        userServiceImp.updateUser(userDto);
         return "redirect:/admin";
     }
 

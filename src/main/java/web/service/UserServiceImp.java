@@ -3,15 +3,27 @@ package web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import web.dto.UserDto;
+import web.models.Role;
 import web.models.User;
+import web.repository.RoleRepository;
 import web.repository.UserRepository;
+
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImp implements UserService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    public void setRoleRepository(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -29,7 +41,15 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void save(User user) {
+    public void updateUser(UserDto userDto) {
+        User user = fromUserDtoToUser(userDto);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void saveUser(UserDto userDto) {
+        User user = fromUserDtoToUser(userDto);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -49,4 +69,28 @@ public class UserServiceImp implements UserService {
         userRepository.deleteById(id);
     }
 
+    private User fromUserDtoToUser(UserDto userDto) {
+        User user = new User();
+        user.setId(userDto.getId());
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
+        user.setName(userDto.getName());
+        user.setLastName(userDto.getLastName());
+
+        Set<Role> roles = new LinkedHashSet<>();
+        if (userDto.getRoles() != null) {
+            for (String roleName : userDto.getRoles()) {
+                Role roleInBase = roleRepository.findByName(roleName);
+                if (roleInBase != null) {
+                    roles.add(roleInBase);
+                } else {
+                    roles.add(new Role(roleName));
+                }
+            }
+        } else {
+            roles = null;
+        }
+        user.setRoles(roles);
+        return user;
+    }
 }
