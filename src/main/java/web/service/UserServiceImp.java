@@ -43,7 +43,7 @@ public class UserServiceImp implements UserService {
     @Override
     public void updateUser(UserDto userDto) {
         User user = fromUserDtoToUser(userDto);
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+   //     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -73,7 +73,11 @@ public class UserServiceImp implements UserService {
         User user = new User();
         user.setId(userDto.getId());
         user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
+        if (userDto.getPassword().isEmpty()) {
+            user.setPassword(userRepository.findById(userDto.getId()).get().getPassword());
+        } else {
+            user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        }
         user.setName(userDto.getName());
         user.setLastName(userDto.getLastName());
 
