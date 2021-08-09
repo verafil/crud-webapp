@@ -38,6 +38,14 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.webjars.bower/jquery -->
+    <dependency>
+      <groupId>org.webjars.bower</groupId>
+      <artifactId>jquery</artifactId>
+      <version>3.6.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>

@@ -35,7 +35,8 @@ public class UsersController {
     public String index(Model model) {
         //получим список всех пользователей БД
         model.addAttribute("usersList", userServiceImp.readAll());
-        return "show";
+        //return "show";
+        return "admin-panel";
     }
 
     @GetMapping("/user-create")
