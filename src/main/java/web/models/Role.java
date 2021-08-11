@@ -1,5 +1,6 @@
 package web.models;
 
+import org.hibernate.mapping.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.Set;

@@ -50,7 +50,7 @@ public class UserServiceImp implements UserService {
     @Override
     public void saveUser(UserDto userDto) {
         User user = fromUserDtoToUser(userDto);
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+  //      user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
