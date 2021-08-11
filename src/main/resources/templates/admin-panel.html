@@ -17,9 +17,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-1">
-      <nav class="nav flex-column">
-        <a class="nav-link active" href="#">Admin</a>
-        <a class="nav-link" href="#newUser">User</a>
+      <nav class="list-group">
+        <a href="admin" class="list-group-item list-group-item-action active">Admin</a>
+        <a th:href="@{/user/{id}(id=${usersList[0].getId()})}" class="list-group-item list-group-item-action">User</a>
       </nav>
     </div>
 
@@ -35,7 +35,7 @@
       </ul>
 
       <div class="tab-content">
-        <div class="tabe-pane fade show active" id="adminTable">
+        <div class="tab-pane fade show active" id="adminTable">
               <table class="table table-hover">
                 <H4>All users</H4>
                 <thead>
@@ -66,6 +66,8 @@
         </div>
         <div class="tab-pane fade" id="newUser">
           <div class="container">
+            <div class="row">
+              <div class="col-sm-3">
           <form action="#" th:action="@{/user-create}" th:object="${userDto}" method="post">
             <div class="form-group">
               <label for="name_create" class="form-control-label">Name:</label>
@@ -93,6 +95,8 @@
 
             <button type="submit" class="btn btn-success">Create user</button>
           </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
