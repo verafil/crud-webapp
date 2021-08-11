@@ -8,13 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import web.dto.UserDto;
-import web.models.Role;
 import web.models.User;
 import web.service.UserServiceImp;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class UsersController {
@@ -33,15 +30,8 @@ public class UsersController {
 
     @GetMapping("/admin")
     public String index(Model model) {
-        //получим список всех пользователей БД
         model.addAttribute("usersList", userServiceImp.readAll());
-        //return "show";
         return "admin-panel";
-    }
-
-    @GetMapping("/user-create")
-    public String createUserForm(User user) {
-        return "user-create";
     }
 
     @PostMapping("/user-create")
@@ -54,14 +44,6 @@ public class UsersController {
     public String deleteUser(@PathVariable("id") int id) {
         userServiceImp.delete(id);
         return "redirect:/admin";
-    }
-
-    @GetMapping("/user-update/{id}")
-    public String updateUserForm(@PathVariable("id") int id, Model model) {
-        User user = userServiceImp.readById(id);
-        model.addAttribute("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
-        model.addAttribute("user", user);
-        return "user-update";
     }
 
     @PostMapping("/user-update")
