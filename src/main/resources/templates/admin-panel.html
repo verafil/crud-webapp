@@ -19,7 +19,10 @@
     <div class="col-sm-1">
       <nav class="list-group">
         <a href="admin" class="list-group-item list-group-item-action active">Admin</a>
-        <a th:href="@{/user/{id}(id=${usersList[0].getId()})}" class="list-group-item list-group-item-action">User</a>
+        <td th:each="user : ${usersList}">
+          <a th:if="${#authentication.getName() == user.username}"
+             th:href="@{/user/{id}(id=${user.getId()})}" class="list-group-item list-group-item-action">User</a>
+        </td>
       </nav>
     </div>
 
