@@ -80,6 +80,7 @@ public class UserServiceImp implements UserService {
         }
         user.setName(userDto.getName());
         user.setLastName(userDto.getLastName());
+        user.setAge(userDto.getAge());
 
         Set<Role> roles = new LinkedHashSet<>();
         if (userDto.getRoles() != null) {

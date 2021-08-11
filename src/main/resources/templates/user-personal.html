@@ -33,6 +33,7 @@
                             <th>Name</th>
                             <th>Last name</th>
                             <th>Username</th>
+                            <th>Age</th>
                             <th>Roles</th>
                         </tr>
                         </thead>
@@ -43,6 +44,7 @@
                             <td th:text="${user.getName()}"></td>
                             <td th:text="${user.getLastName()}"></td>
                             <td th:text="${user.getUsername()}"></td>
+                            <td th:text="${user.getAge()}"></td>
                             <td th:text="${user.toStringRoles(user.getRoles())}"></td>
                         </tr>
                         </tbody>

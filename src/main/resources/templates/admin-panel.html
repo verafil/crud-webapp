@@ -44,6 +44,7 @@
                   <th>Name</th>
                   <th>Last name</th>
                   <th>Username</th>
+                  <th>Age</th>
                   <th>Roles</th>
                   <th>Edit</th>
                   <th>Delete</th>
@@ -56,6 +57,7 @@
                   <td th:text="${user.getName()}"></td>
                   <td th:text="${user.getLastName()}"></td>
                   <td th:text="${user.getUsername()}"></td>
+                  <td th:text="${user.getAge()}"></td>
                   <td th:text="${user.toStringRoles(user.getRoles())}"></td>
                   <td><a class="btn btn-primary eBtn" data-bs-toggle="modal" th:data-bs-target="${'#modalEdit'+user.getId()}">Edit</a></td>
                   <td><a class="btn bg-danger eBtn" data-bs-toggle="modal" th:data-bs-target="${'#modalDelete'+user.getId()}">Delete</a></td>
@@ -80,6 +82,10 @@
             <div class="form-group">
               <label for="username_create" class="form-control-label">username:</label>
               <input type="text" class="form-control" id="username_create" name="username">
+            </div>
+            <div class="form-group">
+              <label for="age_create" class="form-control-label">age:</label>
+              <input type="text" class="form-control" id="age_create" name="age">
             </div>
             <div class="form-group">
               <label for="password_create" class="form-control-label">password:</label>
@@ -134,6 +140,10 @@
           <input type="text" class="form-control" th:value="*{username}" id="username_edit" name="username">
         </div>
         <div class="form-group">
+          <label for="age_edit" class="form-control-label">Age:</label>
+          <input type="text" class="form-control" th:value="*{age}" id="age_edit" name="age">
+        </div>
+        <div class="form-group">
           <label for="password_edit" class="form-control-label">password:</label>
           <input type="text" class="form-control" id="password_edit" name="password">
         </div>
@@ -182,6 +192,10 @@
             <div class="form-group">
               <label for="username_del" class="form-control-label">username:</label>
               <input readonly type="text" class="form-control" th:value="*{username}" id="username_del" name="username">
+            </div>
+            <div class="form-group">
+              <label for="age_del" class="form-control-label">Age:</label>
+              <input readonly type="text" class="form-control" th:value="*{age}" id="age_del" name="age">
             </div>
             <div class="form-group">
               <label for="password_del" class="form-control-label">password:</label>

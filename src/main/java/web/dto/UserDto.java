@@ -10,16 +10,18 @@ public class UserDto {
     private String name;
     private String lastName;
     private Set<String> roles;
+    private Integer age;
 
     public UserDto() {
     }
 
-    public UserDto(String username, String password, String name, String lastName, Set<String> roles) {
+    public UserDto(String username, String password, String name, String lastName, Integer age, Set<String> roles) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.lastName = lastName;
         this.roles = roles;
+        this.age = age;
     }
 
     public int getId() {
@@ -69,4 +71,8 @@ public class UserDto {
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
+
+    public void setAge(Integer age) {this.age = age;}
+
+    public Integer getAge() {return age;}
 }

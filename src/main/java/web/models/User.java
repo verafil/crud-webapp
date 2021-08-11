@@ -25,18 +25,22 @@ public class User implements UserDetails {
     @Column
     private String lastName;
 
+    @Column
+    private Integer age;
+
     @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<Role> roles;
 
     public User() {
     }
 
-    public User(String username, String password, String name, String lastName, Set<Role> roles) {
+    public User(String username, String password, String name, String lastName, Integer age,Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.lastName = lastName;
         this.roles = roles;
+        this.age = age;
     }
 
     public int getId() {
@@ -84,6 +88,8 @@ public class User implements UserDetails {
         return lastName;
     }
 
+    public Integer getAge() {return age;}
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -111,6 +117,8 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public void setAge(Integer age) {this.age = age;}
 
     public static String toStringRoles(Set<Role> roles) {
         return roles.toString().replaceAll("[\\]\\[]", "");
