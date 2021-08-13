@@ -3,30 +3,18 @@ package web.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import web.dto.UserDto;
 import web.models.User;
 import web.service.UserServiceImp;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class UsersController {
 
     @Autowired
     private UserServiceImp userServiceImp;
-
-    @GetMapping(value = "/")
-    public String printWelcome(ModelMap model) {
-        List<String> messages = new ArrayList<>();
-        messages.add("Hello!!!");
-        messages.add("I'm Spring MVC application");
-        model.addAttribute("messages", messages);
-        return "index";
-    }
 
     @GetMapping("/admin")
     public String index(Model model) {
