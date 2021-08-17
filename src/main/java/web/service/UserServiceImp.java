@@ -9,11 +9,13 @@ import web.models.User;
 import web.repository.RoleRepository;
 import web.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional
 public class UserServiceImp implements UserService {
 
     private UserRepository userRepository;

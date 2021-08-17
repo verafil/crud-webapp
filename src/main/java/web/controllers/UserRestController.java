@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.dto.UserDto;
+import web.exception.DataInfoHandler;
 import web.models.User;
 import web.service.UserServiceImp;
 
@@ -14,8 +15,13 @@ import java.util.List;
 @RequestMapping("/api")
 public class UserRestController {
 
+
+    private final UserServiceImp userServiceImp;
+
     @Autowired
-    private UserServiceImp userServiceImp;
+    public UserRestController(UserServiceImp userServiceImp) {
+        this.userServiceImp = userServiceImp;
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> index() {
@@ -40,14 +46,14 @@ public class UserRestController {
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable("id") int id) {
+    public ResponseEntity<DataInfoHandler> deleteUser(@PathVariable("id") int id) {
         userServiceImp.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(new DataInfoHandler("User was deleted"), HttpStatus.OK);
     }
 
     @PutMapping("/users")
-    public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
-        userServiceImp.updateUser(userDto);
+    public ResponseEntity<?> updateUser(@RequestBody UserDto user) {
+        userServiceImp.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
